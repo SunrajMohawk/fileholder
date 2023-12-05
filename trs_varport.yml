@@ -9,7 +9,7 @@ services:
   db:
     image: sunrajmohawk/trsdb
     environment:
-      MYSQL_ROOT_PASSWORD: /run/secrets/db_root_password
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
     secrets:
       - db_root_password
 
