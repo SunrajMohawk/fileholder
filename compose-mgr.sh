@@ -8,7 +8,7 @@
 # James, Summer 2023
 #
 
-BASE_PORT=8000
+BASE_PORT=8001
 CMD=/usr/bin/docker-compose
 
 ############ no changes should be needed past this line ##############
@@ -22,17 +22,19 @@ CMD=/usr/bin/docker-compose
 #
 function usage {
     echo "$0: $2"
-    echo "usage: $0 -f FILE -n N up|down"
+    echo "usage: $0 -f FILE -n N [ -p BASE_PORT ] up|down"
     echo "      -f FILE"
     echo "          Specify the compose file"
     echo "      -n "
     echo "          run N copies of the stack to bring up or down"
+    echo "      -p BASE_PORT"
+    echo "          Set the BASE_PORT (default:8001)"
     exit $1
 } >&2
 
 # parse the command line arguments
 #
-while getopts "f:n:" arg 
+while getopts "f:n:p:" arg 
 do
     case $arg in
         f)
@@ -50,9 +52,17 @@ do
                 usage 1 "N must be an integer" 
             fi 
             ;;
+	p)
+	    # BASE_PORT must be an integer
+	    BASE_PORT=$OPTARG
+	    if [[ ! $BASE_PORT =~ ^[0-9]+$ ]]
+	    then
+		usage 1 "BASE_PORT must be an integer"
+	    fi
+ 	    ;; 
         *)
             usage 1
-			;;
+	    ;;
     esac
 done
 
@@ -70,7 +80,9 @@ case $1 in
         usage 1 "up or down required"
 		;;
 esac
-
+echo "Command: $VERB"
+echo "N: $N"
+echo "BASE_PORT: $BASE_PORT"
 
 # command line args have been parsed
 # if we get here, we know that we were invoked with sane arguments and that
