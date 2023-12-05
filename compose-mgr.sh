@@ -22,7 +22,7 @@ CMD=/usr/bin/docker-compose
 #
 function usage {
     echo "$0: $2"
-    echo "usage: $0 -f FILE -n N [ -p BASE_PORT ] up|down"
+    echo "usage: $0 -f FILE -n N -p BASE_PORT up|down"
     echo "      -f FILE"
     echo "          Specify the compose file"
     echo "      -n "
@@ -80,6 +80,8 @@ case $1 in
         usage 1 "up or down required"
 		;;
 esac
+
+# these commands are to verify the correct arguments are being used
 echo "Command: $VERB"
 echo "N: $N"
 echo "BASE_PORT: $BASE_PORT"
