@@ -25,7 +25,7 @@ ExecStart=/usr/bin/podman run \
 	-p \
 	-d \
 	-v trs_db_volume:/var/lib/containers/storage/volume/trs_db_volume/_data \
-	--name trs_db docker.io/sunrajmohawk/trsdb
+	--name trs_db docker.io/sunrajmohawk/trsdb \
 	--pod=trs_pod
 ExecStop=/usr/bin/podman stop \
 	--ignore -t 10 \
